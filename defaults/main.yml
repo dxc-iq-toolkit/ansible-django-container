@@ -1,0 +1,57 @@
+---
+
+virtualenv_python_version: python2.7
+
+# top-level Django settings
+django_user: django
+django_port: 8080
+
+# directory and filepath locations
+django_root: /django
+django_venv: /venv
+
+django_project_dir: "{{ project_name }}"
+manage_path: "{{ django_root }}/{{ django_project_dir }}"
+django_static_root: "{{ django_root }}/static/"
+django_media_root: "{{ django_root }}/media/"
+
+requirements_file: "{{ django_root }}/requirements.txt"
+core_source_files:
+  - "{{ django_project_dir }}"
+  - "{{ requirements_file }}"
+
+# Django environment variables to define in postactivate script
+django_environment:
+  DEBUG: "{{ django_debug|default(True) }}"
+
+# Define system package dependencies
+django_rpm_deps:
+    - git
+    - gcc
+    - gcc-c++
+    - python-pip
+    - python-devel
+    - libxml2
+    - python-numpy
+    - python-scipy
+    - python-pandas
+    - python-lxml
+
+django_apt_deps:
+    - build-essential
+    - git
+    - acl
+    - ntp
+    - gcc
+    - g++
+    - gfortran
+    - f2c
+    - libcnf-dev
+    - libpq-dev
+    - python-dev
+    - python-pip
+    - python-pycurl
+    - ipython
+    - libxml2-dev
+    - libxslt1-dev
+

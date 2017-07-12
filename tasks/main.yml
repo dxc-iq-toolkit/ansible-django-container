@@ -1,0 +1,32 @@
+---
+
+- include_vars: "/src/{{ item }}"
+  with_items: "{{ var_files }}"
+  when: var_files is defined and var_files
+
+- include: install.yml
+
+- name: Make Django user
+  user:
+    name: "{{ django_user }}"
+    uid: 1000
+    group: root
+    state: present
+    createhome: yes
+    home: "{{ django_root }}"
+
+- include: virtualenv.yml
+
+- include: statics.yml
+
+- name: Copy entrypoint
+  copy:
+    src: "{{ role_path }}/files/{{ item }}" 
+    dest: "/usr/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: 0775
+  with_items:
+    - entrypoint.sh
+    - wait_on_postgres.py
+    - manage_django.sh

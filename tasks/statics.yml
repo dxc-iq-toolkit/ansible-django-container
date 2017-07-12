@@ -1,0 +1,32 @@
+---
+
+- name: Remove staticfiles dir
+  file: 
+    name: "{{ django_static_root }}"
+    state: absent
+
+- name: Make staticfiles dir
+  file:
+    name: "{{ django_static_root }}"
+    state: directory
+    owner: "{{ django_user }}"
+    group: root
+    mode: 0775
+
+- name: Collect staticfiles
+  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && source {{ django_venv }}/bin/postactivate && python {{ manage_path }}/manage.py collectstatic --noinput'"
+  args:
+    chdir: "{{ django_root }}"
+  remote_user: "{{ django_user }}"
+
+- command: 'ls {{ django_static_root }}'
+  register: statics
+
+- debug:
+    var: statics
+
+- name: Copy static assets to conductor 
+  synchronize:
+    src: "{{ django_static_root }}"
+    dest: /tmp/django/ 
+    mode: pull

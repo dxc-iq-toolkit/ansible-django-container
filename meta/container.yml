@@ -1,0 +1,17 @@
+  django:
+    image: debian:jessie
+    environment: &django_env
+      DATABASE_URL: 'pgsql://{{ db_user }}:{{ db_password }}@postgresql:5432/{{ db_name }}'
+      DJANGO_ROOT: '{{ django_root }}'
+      DJANGO_VENV: '{{ django_venv }}'
+      PROJECT_NAME: '{{ project_name }}'
+    ports:
+      - "{{ django_port }}:80"
+    user: '{{ django_user }}'
+    working_dir: '{{ django_root }}/{{ project_name }}'
+    command: ['/usr/bin/dumb-init', '{{ django_venv }}/bin/gunicorn', -w, '2', -b, '0.0.0.0:{{ django_port }}', '{{ project_name }}.wsgi:application']
+    entrypoint: [/usr/bin/entrypoint.sh]
+    dev_overrides:
+      environment:
+        <<: *django_env
+        DEBUG: 'True'

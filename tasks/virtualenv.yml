@@ -1,0 +1,41 @@
+---
+
+- name: Create django root directory 
+  file:
+    path: "{{ django_root }}"
+    state: directory
+    owner: "{{ django_user }}" 
+    group: root
+    mode: 0775 
+
+- name: Make virtualenv dir
+  file:
+    name: "{{ django_venv }}"
+    state: directory
+    owner: "{{ django_user }}"
+    group: root
+    mode: 0775
+
+- name: Setup virtualenv
+  command: "env -i PATH=$PATH bash -c 'virtualenv -p /usr/bin/{{ virtualenv_python_version }} --system-site-packages {{ django_venv }}'"
+  args:
+    chdir: "{{ django_venv }}"
+    creates: "{{ django_venv }}/bin/python"
+  remote_user: "{{ django_user }}"
+
+- name: Copy core source items 
+  synchronize:
+    src: "/src/{{ item }}"
+    dest: "{{ django_root }}"
+  remote_user: "{{ django_user }}"
+  with_items: "{{ core_source_files }}"
+
+- name: Install requirements with raw command
+  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && pip install -r {{ django_root }}/requirements.txt'"
+
+- name: Place postactivate script with secure permissions
+  template:
+    src: virtualenv_postactivate.j2
+    dest: "{{ django_venv }}/bin/postactivate"
+    owner: "{{ django_user }}"
+    mode: 0700

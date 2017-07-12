@@ -1,0 +1,36 @@
+- name: Install dumb init
+  get_url:
+    dest: /usr/bin/dumb-init
+    url: https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
+    mode: 0775
+    validate_certs: no
+
+- name: Install epel if RedHat
+  yum: 
+    name: epel-release
+    state: present 
+    disable_gpg_check: yes
+  when: ansible_os_family == 'RedHat'
+
+- name: Install yum python deps if RedHat
+  yum:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+    disable_gpg_check: yes
+  with_items: "{{ django_rpm_deps }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Install apt python deps if Debian 
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ django_apt_deps }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Install python virtualenv with pip
+  pip:
+    name: virtualenv
+    state: latest
+    executable: /usr/bin/pip
