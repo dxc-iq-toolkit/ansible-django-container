@@ -19,12 +19,6 @@
     chdir: "{{ django_root }}"
   remote_user: "{{ django_user }}"
 
-- command: 'ls {{ django_static_root }}'
-  register: statics
-
-- debug:
-    var: statics
-
 - name: Copy static assets to conductor 
   synchronize:
     src: "{{ django_static_root }}"
