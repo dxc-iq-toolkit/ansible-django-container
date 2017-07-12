@@ -36,7 +36,7 @@ Note: to help keep the difference between Ansible and Environment variables stra
 ### Ansible Role Variables
 - `project_name`: name of your Django project folder and project app (assumes standard django folder structure)
 - `django_environment`: dictionary of environment variable definitions that will be injected into virtualenv postactivate script (see defaults/main.yml for an example)
-- `requirements_file`: if your django app's requirements file does not live at the root of your repo, this can be used to specify the full filepath and name
+- `requirements_file`: if your django app's requirements file does not live at the root of your repo, this can be used to specify the relative filepath
 - `core_source_files`: by default `requirements_file` and the top-level directory in your repo whose name matches `project_name` will be baked into the container. Additional source files that need to be built into the image can be specified here.
 - `django_static_root`: specifies the directory where django will collect static files. This should match the value of `STATIC_ROOT` in your Django settings, or be loaded with `os.environ` from a postactivate environment variable specified in `django_environment`
 - `django_media_root`: same function as `django_static_root` but for the `MEDIA_ROOT` Django setting
