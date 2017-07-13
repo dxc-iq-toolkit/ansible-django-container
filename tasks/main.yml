@@ -15,6 +15,12 @@
     createhome: yes
     home: "{{ django_root }}"
 
+- name: Create application log directory
+  file:
+    path: "{{ django_log_dir }}"
+    state: directory
+    owner: "{{ django_user }}"
+
 - include: virtualenv.yml
 
 - include: statics.yml
