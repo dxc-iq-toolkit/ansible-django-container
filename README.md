@@ -34,6 +34,9 @@ $ ansible-container install marcusianlevine.ansible-django-container
 Note: to help keep the difference between Ansible and Environment variables straight, variables in the Ansible context will be lower case (this_is_ansible), while Environment variables will always be capitalized (ENVIRONMENT_VARIABLE).
 
 ### Ansible Role Variables
+
+These variables can be overriden either in container.yml during role inclusion, or by specifying your variables in a file and including it in container.yml under the `var_files` role variable
+
 - `project_name`: name of your Django project folder and project app (assumes standard django folder structure)
 - `django_environment`: dictionary of environment variable definitions that will be injected into virtualenv postactivate script (see defaults/main.yml for an example)
 - `requirements_file`: if your django app's requirements file does not live at the root of your repo, this can be used to specify the relative filepath
