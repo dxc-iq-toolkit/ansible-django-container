@@ -34,3 +34,11 @@
     name: virtualenv
     state: latest
     executable: /usr/bin/pip
+
+- name: Clean yum cache
+  command: yum clean all
+  when: ansible_os_family == 'RedHat'
+
+- name: Clean apt cache
+  command: apt-get autoclean
+  when: ansible_os_family == 'Debian'
