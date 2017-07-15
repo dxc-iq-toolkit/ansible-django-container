@@ -40,7 +40,7 @@
 - name: Copy any extra script templates
   template:
     src: "/src/{{ item }}"
-    dest: "/usr/bin/{{ item|splitext }}[0]"
+    dest: "/usr/bin/{{ item | basename | splitext }}[0]"
     owner: root
     group: root
     mode: 0775
