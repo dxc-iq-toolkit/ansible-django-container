@@ -39,3 +39,8 @@
     dest: "{{ django_venv }}/bin/postactivate"
     owner: "{{ django_user }}"
     mode: 0700
+
+- name: Flush pip cache to trim down image size
+  file:
+    path: /root/.cache/pip
+    state: absent
