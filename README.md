@@ -35,7 +35,7 @@ Note: to help keep the difference between Ansible and Environment variables stra
 
 ### Ansible Role Variables
 
-These variables can be overriden either in container.yml during role inclusion, or by specifying your variables in a file and including it in container.yml under the `var_files` role variable
+These variables can be overriden either in container.yml during role inclusion, or by specifying your variables in a file and including them in container.yml under the `var_files` role variable as paths relative to `/src` (the path on the ansible-container conductor where your project's source code is mounted) 
 
 - `project_name`: name of your Django project folder and project app (assumes standard django folder structure)
 - `django_environment`: dictionary of environment variable definitions that will be injected into virtualenv postactivate script (see defaults/main.yml for an example)
@@ -45,6 +45,7 @@ These variables can be overriden either in container.yml during role inclusion, 
 - `django_media_root`: same function as `django_static_root` but for the `MEDIA_ROOT` Django setting
 - `manage_path`: location of project's manage.py script, defaults to the top-level directory matching `project_name`
 - `django_rpm_deps` and `django_apt_deps`: list of package names for either apt or yum, depending on your target distribution (note that the same package might have a slightly different name in the other package repository)
+- `script_templates`: provide a list of paths relative to /src (the path on ansible-container conductor where your project is mounted) for additional Jinja2 (or plain text) script files that you would like baked into your image at /usr/bin/
 
 
 ### Environment Variables

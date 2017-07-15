@@ -25,7 +25,7 @@
 
 - include: statics.yml
 
-- name: Copy entrypoint
+- name: Copy base entrypoint scripts
   copy:
     src: "{{ role_path }}/files/{{ item }}" 
     dest: "/usr/bin/{{ item }}"
@@ -36,3 +36,13 @@
     - entrypoint.sh
     - wait_on_postgres.py
     - manage_django.sh
+
+- name: Copy any extra script templates
+  template:
+    src: "/src/{{ item }}"
+    dest: "/usr/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: 0775
+  with_items: "{{ script_templates }}"
+  when: script_templates is defined and script_templates
