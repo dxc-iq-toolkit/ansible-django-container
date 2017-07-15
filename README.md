@@ -46,6 +46,7 @@ These variables can be overriden either in container.yml during role inclusion, 
 - `manage_path`: location of project's manage.py script, defaults to the top-level directory matching `project_name`
 - `django_rpm_deps` and `django_apt_deps`: list of package names for either apt or yum, depending on your target distribution (note that the same package might have a slightly different name in the other package repository)
 - `script_templates`: provide a list of paths relative to /src (the path on ansible-container conductor where your project is mounted) for additional Jinja2 (or plain text) script files that you would like baked into your image at /usr/bin/
+    - Note: the final extension of each filename will be truncated, so `scripts/gunicorn_start.j2` would be templated into the image as `/usr/bin/gunicorn_start`
 
 
 ### Environment Variables
