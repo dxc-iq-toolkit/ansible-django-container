@@ -27,7 +27,9 @@ $ ansible-container install marcusianlevine.ansible-django-container
     ```
 
 - By default, this role creates a user within the container named "django". During deployment, the container entrypoint process should be run as this user.
-- Your django project's requirements.txt should be at the root of your git repo and **must contain gunicorn**
+- Your django project's requirements.txt **must contain gunicorn**.
+- In addition to running collectstatic and embedding your static files in the resulting Docker image, this role also supports transferring your static files to e.g. an nginx container via docker volumes.
+    - This behavior is achieved by copying the static files to the conductor, so they can then be copied to any other container built by the same ansible-container pipeline
 
 ## Role Variables
 
