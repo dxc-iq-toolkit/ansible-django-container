@@ -28,7 +28,7 @@
     src: "/src/{{ item }}"
     dest: "{{ django_root }}"
     owner: "{{ sync_conductor_owner|default(false) }}"
-  remote_user: "{{ django_user }}"
+  remote_user: root #"{{ django_user }}"
   with_items: "{{ core_source_files }}"
 
 - name: Install requirements with raw command
