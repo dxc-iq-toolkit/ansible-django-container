@@ -25,6 +25,13 @@
 
 - include: statics.yml
 
+- name: Make migrations
+  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && source {{ django_venv }}/bin/postactivate && python {{ manage_path }}/manage.py makemigrations'"
+  args:
+    chdir: "{{ django_root }}"
+  remote_user: "{{ django_user }}"
+  when: make_migrations is defined and make_migrations
+
 - name: Copy base entrypoint scripts
   copy:
     src: "{{ role_path }}/files/{{ item }}" 

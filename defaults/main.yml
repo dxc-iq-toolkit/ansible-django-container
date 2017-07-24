@@ -6,6 +6,8 @@ virtualenv_python_version: python2.7
 django_user: django
 django_port: 8080
 
+make_migrations: yes 
+
 # directory and filepath locations
 django_root: /django
 django_venv: /venv
