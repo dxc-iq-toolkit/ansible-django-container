@@ -27,7 +27,6 @@
   synchronize:
     src: "/src/{{ item }}"
     dest: "{{ django_root }}"
-    owner: "{{ sync_conductor_owner|default(false) }}"
   remote_user: root 
   with_items: "{{ core_source_files }}"
 
@@ -36,6 +35,7 @@
     path: "{{ django_root }}"
     mode: 0775
     owner: "{{ django_user }}"
+    group: root
     state: directory
     recurse: yes
   remote_user: root
