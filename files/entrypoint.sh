@@ -5,7 +5,7 @@ set -x
 if [[ $@ == *"gunicorn"* || $@ == *"runserver"* ]]; then
     if [ -f ${DJANGO_ROOT}/${PROJECT_NAME}/manage.py ]; then
         /usr/bin/wait_on_postgres.py 
-        if [ "$?" == "0" ] && [ "$1" != "--no-migration" ]; then
+        if [ "$?" == "0" ]; then
             /usr/bin/manage_django.sh migrate --fake-initial --noinput           
         fi
     fi
