@@ -28,8 +28,17 @@
     src: "/src/{{ item }}"
     dest: "{{ django_root }}"
     owner: "{{ sync_conductor_owner|default(false) }}"
-  remote_user: root #"{{ django_user }}"
+  remote_user: root 
   with_items: "{{ core_source_files }}"
+
+- name: Allow execution of all django files by django user
+  file:
+    path: "{{ django_root }}"
+    mode: 0775
+    owner: "{{ django_user }}"
+    state: directory
+    recurse: yes
+  remote_user: root
 
 - name: Install requirements with raw command
   command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && pip install -r {{ django_root }}/requirements.txt'"
