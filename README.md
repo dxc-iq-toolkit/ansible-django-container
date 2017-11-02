@@ -50,6 +50,9 @@ These variables can be overriden either in container.yml during role inclusion, 
 - `script_templates`: provide a list of paths relative to /src (the path on ansible-container conductor where your project is mounted) for additional Jinja2 (or plain text) script files that you would like baked into your image at /usr/bin/
     - Note: the final extension of each filename will be truncated, so `scripts/gunicorn_start.j2` would be templated into the image as `/usr/bin/gunicorn_start`
 
+- `bundle_build_cmd`: if you need to build a webpack or similar bundle, provide the command to run here
+    - Note: any system dependencies required for this build command to run must be installed prior to this role.
+- `bundle_build_dir`: directory from which to run `bundle_build_cmd`, defaults to `manage_path`
 
 ### Environment Variables
 #### The following environment variables must be defined by your container.yml django service in order to deploy this role.
