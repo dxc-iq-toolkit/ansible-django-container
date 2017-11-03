@@ -34,7 +34,6 @@
     mode: 0775
   with_items:
     - entrypoint.sh
-    - wait_on_postgres.py
     - manage_django.sh
 
 - name: Copy wait_on_postgres script
