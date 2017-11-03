@@ -33,7 +33,7 @@
   pip:
     name: virtualenv
     state: latest
-    executable: /usr/bin/pip
+    executable: "{{ pip_path }}"
 
 - name: Clean yum cache
   command: yum clean all

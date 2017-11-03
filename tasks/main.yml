@@ -34,8 +34,15 @@
     mode: 0775
   with_items:
     - entrypoint.sh
-    - wait_on_postgres.py
     - manage_django.sh
+
+- name: Copy wait_on_postgres script
+  template:
+    src: "{{ role_path }}/templates/wait_on_postgres.py.j2"
+    dest: "/usr/bin/wait_on_postgres.py"
+    owner: root
+    group: root
+    mode: 0775
 
 - name: Copy any extra script templates
   template:

@@ -53,6 +53,9 @@ These variables can be overriden either in container.yml during role inclusion, 
 - `bundle_build_cmd`: if you need to build a webpack or similar bundle, provide the command to run here
     - Note: any system dependencies required for this build command to run must be installed prior to this role.
 - `bundle_build_dir`: directory from which to run `bundle_build_cmd`, defaults to `manage_path`
+- `virtualenv_python_version`: Python executable with version, defaults to `python2.7`
+- `pip_command`: command used to execute pip, defaults to `pip`, another example is `pip3`
+- `pip_path`: absolute path to pip executable, defaults to `/usr/bin/{{ pip_command }}`
 
 ### Environment Variables
 #### The following environment variables must be defined by your container.yml django service in order to deploy this role.
