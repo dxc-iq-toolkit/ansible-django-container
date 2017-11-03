@@ -1,6 +1,8 @@
 ---
 
 virtualenv_python_version: python2.7
+pip_command: pip
+pip_path: "/usr/bin/{{ pip_command }}"
 
 # top-level Django settings
 django_user: django
