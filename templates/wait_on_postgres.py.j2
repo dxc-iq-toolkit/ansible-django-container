@@ -3,6 +3,9 @@
 import sys
 import socket
 import time
+import os
+
+POSTGRES_HOST = os.environ.get('DATABASE_HOST', 'postgresql')
 
 if __name__ == '__main__':
 
@@ -13,7 +16,7 @@ if __name__ == '__main__':
     while not postgres_is_alive and tries < 20:
         tries += 1
         try:
-            s.connect(('postgresql', 5432))
+            s.connect((POSTGRES_HOST, 5432))
         except socket.error:
             time.sleep(3)
         else:
@@ -23,5 +26,5 @@ if __name__ == '__main__':
         print ("Postgresql started!")
         sys.exit(0)
     else:
-        print ("Unable to reach postgresql on port 5432")
+        print ("Unable to reach " + POSTGRES_HOST + " on port 5432")
         sys.exit(1)
