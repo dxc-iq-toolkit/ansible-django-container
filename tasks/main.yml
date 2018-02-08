@@ -20,6 +20,8 @@
     path: "{{ django_log_dir }}"
     state: directory
     owner: "{{ django_user }}"
+    group: root
+    mode: 0775
 
 - include: virtualenv.yml
 
