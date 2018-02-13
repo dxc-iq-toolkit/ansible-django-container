@@ -41,7 +41,7 @@
   remote_user: root
 
 - name: Install requirements with raw command
-  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && {{ pip_command }} install -r {{ django_root }}/requirements.txt'"
+  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && {{ pip_command }} install -r {{ django_root }}/{{ requirements_file }}'"
 
 - name: Place postactivate script with secure permissions
   template:
