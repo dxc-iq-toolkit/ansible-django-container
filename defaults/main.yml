@@ -1,5 +1,6 @@
 ---
 
+virtualenv_python_dir: /usr/bin
 virtualenv_python_version: python2.7
 pip_command: pip
 pip_path: "/usr/bin/{{ pip_command }}"

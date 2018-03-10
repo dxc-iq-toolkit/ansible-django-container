@@ -17,7 +17,7 @@
     mode: 0775
 
 - name: Setup virtualenv
-  command: "env -i PATH=$PATH bash -c 'virtualenv -p /usr/bin/{{ virtualenv_python_version }} --system-site-packages {{ django_venv }}'"
+  command: "env -i PATH=$PATH bash -c 'virtualenv -p {{ virtualenv_python_dir }}/{{ virtualenv_python_version }} --system-site-packages {{ django_venv }}'"
   args:
     chdir: "{{ django_venv }}"
     creates: "{{ django_venv }}/bin/python"
