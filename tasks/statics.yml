@@ -1,9 +1,12 @@
 ---
+- name: Why isn't build command provided
+  debug: 
+    msg: "this is the bundle build command {{ bundle_build_cmd }} and this is the directory {{ bundle_build_dir }}"
 
 - name: Run specified bundle build command if provided
   shell: "{{ bundle_build_cmd }}"
   args:
-    chdir: "{{ bundle_build_dir | default(manage_path) }}"
+    chdir: "{{ bundle_build_dir }}"
   when: bundle_build_cmd is defined and bundle_build_cmd
 
 - name: Remove staticfiles dir
