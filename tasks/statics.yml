@@ -13,7 +13,7 @@
     mode: 0775
 
 - name: Collect staticfiles
-  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && source {{ django_venv }}/bin/postactivate && python {{ manage_path }}/manage.py collectstatic --noinput'"
+  command: "env -i PATH=$PATH bash -c 'source {{ django_venv }}/bin/activate && source {{ django_venv }}/bin/postactivate && pip install django-tracking2 &&  python {{ manage_path }}/manage.py collectstatic --noinput'"
   args:
     chdir: "{{ django_root }}"
   remote_user: "{{ django_user }}"
